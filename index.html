@@ -14,14 +14,14 @@
       <input type="text" id="gif-input"><br>>
       <input id="add-gif" type="submit" value="MOAR ANIMALS">
     </form>
-    <div id="movies-view"></div>
+    <div id="gif-view"></div>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script type="text/javascript">
 		var animals = ["red panda"]
 		function displayAnimalGifs() {
         var animal = $(this).attr("data-name");
-		var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + animal + "&api_key=brc6dyMgJJUU1k6cMTw0ehjFMnL04iGm&limit=5";
+		var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + animal + "&api_key=brc6dyMgJJUU1k6cMTw0ehjFMnL04iGm&limit=5";
 		
 		$.ajax({
           url: queryURL,
@@ -41,10 +41,23 @@
           	//creating an element to display gif rating
 				var animalRating = $("<p>").text("Rated: " + rating);
           	//display the rating
-				animalDiv.append(pOne);
-
+				animalDiv.append(animalRating);
         	});
         };
+      function renderButtons() {
+        $("#buttons-view").empty();
+		//loop through animal array
+        for (var i = 0; i < animals.length; i++) {
+        //make a var for buttons, then dynamically add info to that var, yo.
+        var a = $("<button>");
+        a.addClass("animal");
+        a.attr("data-name", animals[i]);
+        a.text(animals[i]);
+        $("#buttons-view").append(a);
+        //at this point nothing is showing up on our page.  why?
+        //bad user experience.  D:
+        };
+      };
 	
 	</script>
 </body>
