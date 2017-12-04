@@ -21,19 +21,20 @@
 		var animals = ["red panda"]
 		function displayAnimalGifs() {
         var animal = $(this).attr("data-name");
-		var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + animal + "&api_key=brc6dyMgJJUU1k6cMTw0ehjFMnL04iGm&limit=5";
+		var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=" + animal + "&limit=5";
 		
 		$.ajax({
           url: queryURL,
           method: "GET"
         	}).done(function(response){
+        	var gifDiv = $("<div class='movie'>");
         	//display gif
 			// Creating an element to hold the image
 			var image = $("<img>").attr("src", gifURL);
 			// Appending the image
-			movieDiv.append(image);
+			gifDiv.append(image);
           	// Putting the entire movie above the previous movies
-			$("#gif-view").prepend(movieDiv);
+			$("#gif-view").prepend(gifDiv);
         	//creating a div for our animal
         		var animalDiv = $("<div class = 'animal'>")
         	//storing the rating data
@@ -56,9 +57,12 @@
         $("#buttons-view").append(a);
         //at this point nothing is showing up on our page.  why?
         //bad user experience.  D:
+
+
+
         };
       };
-	
+	renderButtons();
 	</script>
 </body>
 </html>
