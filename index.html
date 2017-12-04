@@ -18,34 +18,22 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script type="text/javascript">
-		var animals = ["red panda"]
+		var animals = ["red panda","dog","cat","iguana"]
 		function displayAnimalGifs() {
         var animal = $(this).attr("data-name");
-		var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=" + animal + "&limit=5";
-		
-		$.ajax({
-          url: queryURL,
-          method: "GET"
-        	}).done(function(response){
-        	var gifDiv = $("<div class='movie'>");
-        	//display gif
-			// Creating an element to hold the image
-			var image = $("<img>").attr("src", gifURL);
-			// Appending the image
-			gifDiv.append(image);
-          	// Putting the entire movie above the previous movies
-			$("#gif-view").prepend(gifDiv);
-        	//creating a div for our animal
-        		var animalDiv = $("<div class = 'animal'>")
-        	//storing the rating data
-				var rating = response.rating;
-          	//creating an element to display gif rating
-				var animalRating = $("<p>").text("Rated: " + rating);
-          	//display the rating
-				animalDiv.append(animalRating);
-        	});
+		var queryURL = ("http://api.giphy.com/v1/gifs/search?q="+animal+"&api_key=dc6zaTOxFJmzC&limit=5");
+		//dc6zaTOxFJmzC
+		$.ajax({url: queryURL,method: "GET"})
+
+			.done(function(response){
+        	var imageUrl = response.data.image_original_url;
+        	var animalImage = $("<img>");
+        	animalImage.attr("src", imageUrl);
+        	animalImage.attr("alt", "There should be a GIF here...  :/");
+        	$("#gif-view").prepend(animalImage);
+      		});
         };
-      function renderButtons() {
+      	function renderButtons() {
         $("#buttons-view").empty();
 		//loop through animal array
         for (var i = 0; i < animals.length; i++) {
@@ -55,13 +43,17 @@
         a.attr("data-name", animals[i]);
         a.text(animals[i]);
         $("#buttons-view").append(a);
+        
         //at this point nothing is showing up on our page.  why?
         //bad user experience.  D:
 
 
 
+
+
         };
       };
+   	$("button").click(displayAnimalGifs());
 	renderButtons();
 	</script>
 </body>
